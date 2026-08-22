@@ -5,6 +5,7 @@
 !.gitignore
 !README.md
 !LICENSE
+!install.sh
 !/zsh/
 !/aliases/
 !/nvim/
