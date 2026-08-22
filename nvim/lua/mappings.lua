@@ -145,3 +145,11 @@ map("n", "<leader>fm", function()
         }
     end)
 end, { desc = "Format file and remove unused imports" })
+
+-- ================
+-- Tiny Code Action
+-- ================
+
+vim.keymap.set({ "n", "x" }, "gra", function()
+	require("tiny-code-action").code_action()
+end, { noremap = true, silent = true })
