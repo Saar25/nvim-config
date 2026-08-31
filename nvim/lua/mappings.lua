@@ -93,6 +93,12 @@ map("n", "<leader>fr", "<cmd>Telescope lsp_references<CR>", {
     silent = true,
 })
 
+map("n", "<leader>fi", "<cmd>Telescope lsp_implementations<CR>", {
+    desc = "telescope find implementations",
+    noremap = true,
+    silent = true,
+})
+
 map("n", "<leader>fW", function()
     require("telescope.builtin").live_grep()
 end, { desc = "Telescope Live Grep" })
