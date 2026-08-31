@@ -131,7 +131,7 @@ return {
         },
         event = "LspAttach",
         opts = {
-            picker = "telescope",
+            backend = "vim",
         },
     },
 }

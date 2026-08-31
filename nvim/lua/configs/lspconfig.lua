@@ -1,6 +1,6 @@
 require("nvchad.configs.lspconfig").defaults()
 
-vim.lsp.config["ts_ls"] = {
+vim.lsp.config["vtsls"] = {
     -- shouldn't do this, its only because our project doesn't have tsconfig in its packages, should just add one that extends root base
     root_dir = function(bufnr, on_dir)
         -- Prioritize markers that only exist at the absolute monorepo root
@@ -26,7 +26,7 @@ vim.lsp.config["ts_ls"] = {
     end,
 }
 
-local servers = { "html", "cssls", "ts_ls" }
+local servers = { "html", "cssls", "vtsls" }
 vim.lsp.enable(servers)
 
 -- read :h vim.lsp.config for changing options of lsp servers
