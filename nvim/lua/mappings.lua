@@ -45,7 +45,6 @@ map("n", "<leader>bD", function()
     end
 end, { desc = "Close all buffers" })
 
-
 -- ==========
 -- Toggleterm
 -- ==========
@@ -57,7 +56,6 @@ end, { desc = "Toggle Persistent Lazygit" })
 map({ "n", "t" }, "<leader>ld", function()
     require("configs.toggleterm").lazydocker_terminal:toggle()
 end, { desc = "Toggle Persistent Lazydocker" })
-
 
 -- ========
 -- Markdown
@@ -99,16 +97,35 @@ map("n", "<leader>fi", "<cmd>Telescope lsp_implementations<CR>", {
     silent = true,
 })
 
-map("n", "<leader>fW", function()
-    require("telescope.builtin").live_grep()
+local function get_visual_selection()
+    local s_pos = vim.fn.getpos "v"
+    local e_pos = vim.fn.getpos "."
+    local lines = vim.fn.getregion(s_pos, e_pos, { mode = vim.fn.mode() })
+    return table.concat(lines, "\n")
+end
+
+map({ "n", "x" }, "<leader>fW", function()
+    local mode = vim.fn.mode()
+    local opts = {}
+    if mode == "v" or mode == "V" or mode == "\22" then
+        vim.api.nvim_input "<esc>"
+        opts.default_text = get_visual_selection()
+    end
+    require("telescope.builtin").live_grep(opts)
 end, { desc = "Telescope Live Grep" })
 
-map("n", "<leader>fw", function()
-    require("telescope.builtin").live_grep {
+map({ "n", "x" }, "<leader>fw", function()
+    local mode = vim.fn.mode()
+    local opts = {
         additional_args = function()
             return { "--fixed-strings" }
         end,
     }
+    if mode == "v" or mode == "V" or mode == "\22" then
+        vim.api.nvim_input "<esc>"
+        opts.default_text = get_visual_selection()
+    end
+    require("telescope.builtin").live_grep(opts)
 end, { desc = "Telescope Live Grep (Regex)" })
 
 -- ==========
@@ -157,5 +174,5 @@ end, { desc = "Format file and remove unused imports" })
 -- ================
 
 vim.keymap.set({ "n", "x" }, "gra", function()
-	require("tiny-code-action").code_action()
+    require("tiny-code-action").code_action()
 end, { noremap = true, silent = true })
